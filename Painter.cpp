@@ -16,7 +16,7 @@ Painter& Painter::getInstance()
 
 void Painter::draw(sf::RenderWindow& window, const sf::Vector2f& pos, const sf::Color& color)
 {
-  shape.setPosition(pos * size + sf::Vector2f(thickness, thickness));
+  shape.setPosition(pos * (size - thickness) + sf::Vector2f(thickness, thickness));
   shape.setFillColor(color);
   window.draw(shape);
 }
