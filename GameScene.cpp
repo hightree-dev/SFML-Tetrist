@@ -16,7 +16,7 @@ colors{sf::Color::Red,
        sf::Color::Magenta},
 board{10, 20}, 
 block{figures[std::rand() % figures.size()], colors[std::rand() % colors.size()]},
-score{0}, timer{0.f}, delay{0.5f}, isGameOver{false}
+score{0}, timer{0.f}, delay{0.5f}
 {
   font.loadFromFile("/System/Library/Fonts/Supplemental/Arial.ttf");
   scoreText.setFont(font);
