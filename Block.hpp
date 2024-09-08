@@ -5,8 +5,8 @@
 class Block
 {
 public:
-  Block(int* figure, sf::Color color);
-  void move(sf::Vector2f v);
+  Block(const int* figure, const sf::Color& color);
+  void move(const sf::Vector2f& v);
   void rotate();
   void draw(sf::RenderWindow& window);
 private:

@@ -1,7 +1,7 @@
 #include "Block.hpp"
 #include "Painter.hpp"
 
-Block::Block(int* figure, sf::Color color) : color(color)
+Block::Block(const int* figure, const sf::Color& color) : color(color)
 {
   for (int i = 0; i < 4; ++i)
   {
@@ -10,7 +10,7 @@ Block::Block(int* figure, sf::Color color) : color(color)
   }
 }
 
-void Block::move(sf::Vector2f v)
+void Block::move(const sf::Vector2f& v)
 {
   prevPositions = positions;
   for (auto& pos : positions)
