@@ -10,6 +10,7 @@ class GameScene : public Scene
 public:
   GameScene();
   void handleEvent(sf::Event& event) override;
+  void handleUIEvent(sf::RenderWindow& window) override;
   void update(float deltaTime) override;
   void render(sf::RenderWindow& window) override;
 private:

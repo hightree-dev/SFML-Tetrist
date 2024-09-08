@@ -17,6 +17,12 @@ void SceneManager::handleEvent(sf::Event& event)
   if (currentScene) currentScene->handleEvent(event);
 }
 
+
+void SceneManager::handleUIEvent(sf::RenderWindow& window)
+{
+  if (currentScene) currentScene->handleUIEvent(window);
+}
+
 void SceneManager::update(const float deltaTime) 
 {
   if (currentScene) currentScene->update(deltaTime);

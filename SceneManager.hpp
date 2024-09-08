@@ -13,6 +13,7 @@ public:
 
 	void setScene(std::shared_ptr<Scene> scene);
 	void handleEvent(sf::Event& event);
+	void handleUIEvent(sf::RenderWindow& window);
 	void update(float deltaTime);
 	void render(sf::RenderWindow& window);
 private:

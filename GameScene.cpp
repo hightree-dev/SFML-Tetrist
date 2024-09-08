@@ -16,7 +16,7 @@ colors{sf::Color::Red,
        sf::Color::Magenta},
 board{10, 20}, 
 block{figures[std::rand() % figures.size()], colors[std::rand() % colors.size()]},
-score{0}, timer{0.f}, delay{0.5f}
+score{0}, timer{0.f}, delay{0.5f}, isGameOver{false}
 {
   font.loadFromFile("/System/Library/Fonts/Supplemental/Arial.ttf");
   scoreText.setFont(font);
@@ -28,15 +28,21 @@ score{0}, timer{0.f}, delay{0.5f}
 
 void GameScene::handleEvent(sf::Event& event)
 {
-  if (sf::Event::KeyPressed != event.type)
-    return;
+  if (sf::Event::KeyPressed != event.type) return;
   
+  // if (isGameOver) return;
+
   if (event.key.code == sf::Keyboard::Left) block.move({-1.f, 0.f});
   else if (event.key.code == sf::Keyboard::Right) block.move({1.f, 0.f});
   else if (event.key.code == sf::Keyboard::Up) block.rotate();
   else if (event.key.code == sf::Keyboard::Down) delay = 0.05f;
   if (board.isCollision(block.getPosisitons()))
     block.back();
+}
+
+void GameScene::handleUIEvent(sf::RenderWindow& window)
+{
+
 }
 
 void GameScene::update(float deltaTime) 
@@ -51,8 +57,9 @@ void GameScene::update(float deltaTime)
       if (board.isCollision(block.getPosisitons()))
       {
         SceneManager::getInstance().setScene(std::make_shared<GameOverScene>());
+        return;
       }
-      else 
+      else
       {
         for (const auto& pos : block.getPosisitons())
           board.setColor(pos.x, pos.y, block.getColor());

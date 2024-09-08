@@ -12,7 +12,7 @@ int main()
   sf::Clock clock;
 
   SceneManager& sceneManager = SceneManager::getInstance();
-  sceneManager.setScene(std::make_shared<GameScene>());
+  sceneManager.setScene(std::make_shared<GameOverScene>());
 
   while (window.isOpen())
   {
@@ -24,6 +24,7 @@ int main()
     }
     float deltaTime = clock.getElapsedTime().asSeconds();
     clock.restart();
+    sceneManager.handleUIEvent(window);
     sceneManager.update(deltaTime);
     sceneManager.render(window);
   }

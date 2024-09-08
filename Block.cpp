@@ -8,6 +8,7 @@ Block::Block(const std::array<int , 4>& figure, const sf::Color& color) : color(
     positions[i].x = figure[i] % 2;
     positions[i].y = figure[i] / 2;
   }
+  prevPositions = positions;
 }
 
 const std::array<sf::Vector2f, 4>& Block::getPosisitons() const
