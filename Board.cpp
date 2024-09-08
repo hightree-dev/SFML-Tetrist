@@ -22,8 +22,9 @@ bool Board::isCollision(const std::array<sf::Vector2f, 4>& positions) const
   return false;
 }
 
-void Board::clearLine()
+int Board::clearLine()
 {
+  int count = 0;
   for (int y = height - 1; y >= 0; --y)
   {
     bool isFull = true;
@@ -41,8 +42,10 @@ void Board::clearLine()
         colors[curY] = colors[curY - 1];
       colors[0] = std::vector<sf::Color>(width, sf::Color::White);
       ++y;
+      ++count;
     }
   }
+  return count;
 }
 
 void Board::draw(sf::RenderWindow& window)
