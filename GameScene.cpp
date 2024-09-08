@@ -29,8 +29,6 @@ score{0}, timer{0.f}, delay{0.5f}
 void GameScene::handleEvent(sf::Event& event)
 {
   if (sf::Event::KeyPressed != event.type) return;
-  
-  // if (isGameOver) return;
 
   if (event.key.code == sf::Keyboard::Left) block.move({-1.f, 0.f});
   else if (event.key.code == sf::Keyboard::Right) block.move({1.f, 0.f});

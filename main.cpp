@@ -1,5 +1,4 @@
-#include "GameScene.hpp"
-#include "GameOverScene.hpp"
+#include "IntroScene.hpp"
 #include "SceneManager.hpp"
 #include <SFML/Graphics.hpp>
 
@@ -12,7 +11,7 @@ int main()
   sf::Clock clock;
 
   SceneManager& sceneManager = SceneManager::getInstance();
-  sceneManager.setScene(std::make_shared<GameOverScene>());
+  sceneManager.setScene(std::make_shared<IntroScene>());
 
   while (window.isOpen())
   {
