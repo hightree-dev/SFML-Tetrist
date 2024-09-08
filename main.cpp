@@ -9,21 +9,37 @@
 6 7
 */
 
-int figure[4] = { 0, 1, 3, 5};
+std::vector<std::array<int, 4>> figures = {
+  { 0, 1, 3, 5 },
+  { 0, 1, 2, 3 },
+  { 1, 3, 2, 5 },
+  { 1, 3, 5, 7 }
+};
+std::vector<sf::Color> colors = {
+  sf::Color::Red,
+  sf::Color::Green,
+  sf::Color::Blue,
+  sf::Color::Yellow,
+  sf::Color::Cyan,
+  sf::Color::Magenta
+};
 
 int main()
 {
+  std::srand(std::time(0));
+
   sf::RenderWindow window(sf::VideoMode(800, 600), "Tetris");
   sf::Clock clock;
 
   Board board(10, 20);
-  Block block(figure, sf::Color::Green);
+  Block block(figures[std::rand() % figures.size()], colors[std::rand() % colors.size()]);
 
   float timer = 0.f;
   float delay = 0.5f;
 
   while (window.isOpen())
   {
+    
     timer += clock.getElapsedTime().asSeconds();
     clock.restart();
 
@@ -56,7 +72,7 @@ int main()
         block.back();
         for (const auto& pos : block.getPosisitons())
           board.setColor(pos.x, pos.y, block.getColor());
-        block = Block(figure, sf::Color::Green);
+        block = Block(figures[std::rand() % figures.size()], colors[std::rand() % colors.size()]);
       }
           
       timer = 0.f;

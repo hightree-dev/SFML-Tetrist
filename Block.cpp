@@ -1,7 +1,7 @@
 #include "Block.hpp"
 #include "Painter.hpp"
 
-Block::Block(const int* figure, const sf::Color& color) : color(color)
+Block::Block(const std::array<int , 4>& figure, const sf::Color& color) : color(color)
 {
   for (int i = 0; i < 4; ++i)
   {

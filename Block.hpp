@@ -5,7 +5,7 @@
 class Block
 {
 public:
-  Block(const int* figure, const sf::Color& color);
+  Block(const std::array<int , 4>& figure, const sf::Color& color);
   const std::array<sf::Vector2f, 4>& getPosisitons() const;
   const sf::Color& getColor() const;
   void move(const sf::Vector2f& v);
