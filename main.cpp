@@ -52,7 +52,13 @@ int main()
     {
       block.move({0.f, 1.f});
       if (board.isCollision(block.getPosisitons()))
-          block.back();
+      {
+        block.back();
+        for (const auto& pos : block.getPosisitons())
+          board.setColor(pos.x, pos.y, block.getColor());
+        block = Block(figure, sf::Color::Green);
+      }
+          
       timer = 0.f;
       delay = 0.5f;
     }
