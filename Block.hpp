@@ -6,8 +6,11 @@ class Block
 {
 public:
   Block(const int* figure, const sf::Color& color);
+  const std::array<sf::Vector2f, 4>& getPosisitons() const;
+  const sf::Color& getColor() const;
   void move(const sf::Vector2f& v);
   void rotate();
+  void back();
   void draw(sf::RenderWindow& window);
 private:
   sf::Color color;

@@ -10,6 +10,17 @@ Block::Block(const int* figure, const sf::Color& color) : color(color)
   }
 }
 
+const std::array<sf::Vector2f, 4>& Block::getPosisitons() const
+{
+  return positions;
+}
+
+const sf::Color& Block::getColor() const
+{
+  return color;
+}
+
+
 void Block::move(const sf::Vector2f& v)
 {
   prevPositions = positions;
@@ -27,6 +38,11 @@ void Block::rotate()
     pos.x = center.x - v.y;
     pos.y = center.y + v.x;
   }
+}
+
+void Block::back()
+{
+  positions = prevPositions;
 }
 
 void Block::draw(sf::RenderWindow& window)

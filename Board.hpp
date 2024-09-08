@@ -6,10 +6,8 @@ class Board
 {
 public:
   Board(const int width, const int height);
-  int getWidth() const;
-  int getHeight() const;
-  sf::Color getColor(const int x, const int y) const;
   void setColor(const int x, const int y, const sf::Color& color);
+  bool isCollision(const std::array<sf::Vector2f, 4>& positions) const;
   void draw(sf::RenderWindow& window);
 private:
   int width;
