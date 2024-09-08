@@ -39,6 +39,7 @@ int main()
         if (event.key.code == sf::Keyboard::Left) block.move({-1.f, 0.f});
         else if (event.key.code == sf::Keyboard::Right) block.move({1.f, 0.f});
         else if (event.key.code == sf::Keyboard::Up) block.rotate();
+        else if (event.key.code == sf::Keyboard::Down) delay = 0.05f;
         if (board.isCollision(block.getPosisitons()))
           block.back();
         break;
@@ -53,6 +54,7 @@ int main()
       if (board.isCollision(block.getPosisitons()))
           block.back();
       timer = 0.f;
+      delay = 0.5f;
     }
     
     window.clear(sf::Color::White);
