@@ -14,9 +14,9 @@ Painter& Painter::getInstance()
   return instance;
 }
 
-void Painter::draw(sf::RenderWindow& window, sf::Vector2f pos, sf::Color color)
+void Painter::draw(sf::RenderWindow& window, const sf::Vector2f& pos, const sf::Color& color)
 {
-  shape.setPosition(pos + sf::Vector2f(thickness, thickness));
+  shape.setPosition(pos * size + sf::Vector2f(thickness, thickness));
   shape.setFillColor(color);
   window.draw(shape);
 }

@@ -10,7 +10,7 @@ public:
   Painter(const Painter&) = delete;
   Painter& operator=(const Painter&) = delete;
 
-  void draw(sf::RenderWindow& window, sf::Vector2f pos, sf::Color color);
+  void draw(sf::RenderWindow& window, const sf::Vector2f& pos, const sf::Color& color);
 
 private:
   Painter();
