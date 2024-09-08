@@ -1,4 +1,6 @@
 #include "GameScene.hpp"
+#include "GameOverScene.hpp"
+#include "SceneManager.hpp"
 #include <SFML/Graphics.hpp>
 
 int main()
@@ -9,7 +11,8 @@ int main()
 
   sf::Clock clock;
 
-  GameScene scene;
+  SceneManager& sceneManager = SceneManager::getInstance();
+  sceneManager.setScene(std::make_shared<GameScene>());
 
   while (window.isOpen())
   {
@@ -17,11 +20,11 @@ int main()
     while (window.pollEvent(event))
     {
       if (sf::Event::Closed == event.type) window.close();
-      scene.handleEvent(event);
+      sceneManager.handleEvent(event);
     }
     float deltaTime = clock.getElapsedTime().asSeconds();
     clock.restart();
-    scene.update(deltaTime);
-    scene.render(window);
+    sceneManager.update(deltaTime);
+    sceneManager.render(window);
   }
 }

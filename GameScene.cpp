@@ -1,4 +1,6 @@
 #include "GameScene.hpp"
+#include "GameOverScene.hpp"
+#include "SceneManager.hpp"
 #include <SFML/Graphics.hpp>
 
 GameScene::GameScene() : 
@@ -48,7 +50,7 @@ void GameScene::update(float deltaTime)
       block.back();
       if (board.isCollision(block.getPosisitons()))
       {
-        // Todo Game Over
+        SceneManager::getInstance().setScene(std::make_shared<GameOverScene>());
       }
       else 
       {
