@@ -72,6 +72,7 @@ int main()
         block.back();
         for (const auto& pos : block.getPosisitons())
           board.setColor(pos.x, pos.y, block.getColor());
+        board.clearLine();
         block = Block(figures[std::rand() % figures.size()], colors[std::rand() % colors.size()]);
       }
           

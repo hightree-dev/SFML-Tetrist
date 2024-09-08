@@ -22,9 +22,32 @@ bool Board::isCollision(const std::array<sf::Vector2f, 4>& positions) const
   return false;
 }
 
+void Board::clearLine()
+{
+  for (int y = height - 1; y >= 0; --y)
+  {
+    bool isFull = true;
+    for (int x = 0; x < width; ++x)
+    {
+      if (colors[y][x] == sf::Color::White)
+      {
+        isFull = false;
+        break;
+      }
+    }
+    if (isFull)
+    {
+      for (int curY = y; curY > 0; --curY)
+        colors[curY] = colors[curY - 1];
+      colors[0] = std::vector<sf::Color>(width, sf::Color::White);
+      ++y;
+    }
+  }
+}
+
 void Board::draw(sf::RenderWindow& window)
 {
-  for (int i = 0; i < height; ++i)
-    for (int j = 0; j < width; ++j)
-      Painter::getInstance().draw(window, sf::Vector2f(j, i), colors[i][j]);
+  for (int y = 0; y < height; ++y)
+    for (int x = 0; x < width; ++x)
+      Painter::getInstance().draw(window, sf::Vector2f(x, y), colors[y][x]);
 }

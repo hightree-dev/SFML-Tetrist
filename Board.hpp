@@ -8,6 +8,7 @@ public:
   Board(const int width, const int height);
   void setColor(const int x, const int y, const sf::Color& color);
   bool isCollision(const std::array<sf::Vector2f, 4>& positions) const;
+  void clearLine();
   void draw(sf::RenderWindow& window);
 private:
   int width;
