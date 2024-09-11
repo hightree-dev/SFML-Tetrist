@@ -1,6 +1,8 @@
 #include "GameScene.hpp"
 #include "GameOverScene.hpp"
 #include "SceneManager.hpp"
+#include "ScoreDB.hpp"
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 GameScene::GameScene() : 
@@ -42,7 +44,7 @@ void GameScene::handleEvent(sf::Event& event)
 void GameScene::handleUIEvent(sf::RenderWindow& window)
 {
   if (gameOverButton.isClicked(window))
-    SceneManager::getInstance().setScene(std::make_shared<GameOverScene>(score));
+    gameOver();
 }
 
 void GameScene::update(float deltaTime) 
@@ -56,8 +58,7 @@ void GameScene::update(float deltaTime)
       block.back();
       if (board.isCollision(block.getPosisitons()))
       {
-        SceneManager::getInstance().setScene(std::make_shared<GameOverScene>(score));
-        return;
+        gameOver();
       }
       else
       {
@@ -82,4 +83,18 @@ void GameScene::render(sf::RenderWindow& window)
     block.draw(window);
     window.draw(scoreText);
     window.display();
+}
+
+void GameScene::gameOver()
+{
+  try
+  {
+    ScoreDB::getInstance().addScore(score);
+  }
+  catch(const std::exception& e)
+  {
+    std::cerr << "Eception: " << e.what() << std::endl;
+  }
+  
+  SceneManager::getInstance().setScene(std::make_shared<GameOverScene>(score));
 }

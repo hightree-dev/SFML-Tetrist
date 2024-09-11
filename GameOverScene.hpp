@@ -16,6 +16,7 @@ private:
   sf::Font font;
   sf::Text gameOverText;
   sf::Text scoreText;
+  sf::Text maxScoreText;
 
   Button introButton;
   Button restartButton;
