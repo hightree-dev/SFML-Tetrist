@@ -3,6 +3,7 @@
 #include "Board.hpp"
 #include "Block.hpp"
 #include "Scene.hpp"
+#include "Button.hpp"
 #include <SFML/Graphics.hpp>
 
 class GameScene : public Scene
@@ -26,4 +27,6 @@ private:
 
   sf::Font font;
   sf::Text scoreText;
+
+  Button gameOverButton;
 };

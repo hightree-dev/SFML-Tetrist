@@ -16,7 +16,8 @@ colors{sf::Color::Red,
        sf::Color::Magenta},
 board{10, 20}, 
 block{figures[std::rand() % figures.size()], colors[std::rand() % colors.size()]},
-score{0}, timer{0.f}, delay{0.5f}
+score{0}, timer{0.f}, delay{0.5f},
+gameOverButton(200.f, 200.f, 100.f, 50.f, "Game Over")
 {
   font.loadFromFile("/System/Library/Fonts/Supplemental/Arial.ttf");
   scoreText.setFont(font);
@@ -40,7 +41,8 @@ void GameScene::handleEvent(sf::Event& event)
 
 void GameScene::handleUIEvent(sf::RenderWindow& window)
 {
-
+  if (gameOverButton.isClicked(window))
+    SceneManager::getInstance().setScene(std::make_shared<GameOverScene>(score));
 }
 
 void GameScene::update(float deltaTime) 
@@ -75,6 +77,7 @@ void GameScene::update(float deltaTime)
 void GameScene::render(sf::RenderWindow& window) 
 {
     window.clear(sf::Color::White);
+    gameOverButton.draw(window);
     board.draw(window);
     block.draw(window);
     window.draw(scoreText);
