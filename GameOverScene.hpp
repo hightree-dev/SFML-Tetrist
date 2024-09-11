@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Scene.hpp"
+#include "Button.hpp"
 #include <SFML/Graphics.hpp>
 
 class GameOverScene : public Scene 
@@ -15,5 +16,7 @@ private:
   sf::Font font;
   sf::Text gameOverText;
   sf::Text scoreText;
-  sf::RectangleShape restartButtonShape;
+
+  Button introButton;
+  Button restartButton;
 };
