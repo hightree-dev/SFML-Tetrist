@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Scene.hpp"
+#include "Button.hpp"
 #include <SFML/Graphics.hpp>
 
 class IntroScene : public Scene 
@@ -13,5 +14,5 @@ public:
 	void render(sf::RenderWindow& window) override;
 private:
 	sf::Font font;
-	sf::RectangleShape gameStartButton;
+	Button startButton;
 };

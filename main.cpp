@@ -12,7 +12,7 @@ int main()
   sf::Clock clock;
 
   SceneManager& sceneManager = SceneManager::getInstance();
-  sceneManager.setScene(std::make_shared<GameScene>());
+  sceneManager.setScene(std::make_shared<IntroScene>());
 
   while (window.isOpen())
   {
