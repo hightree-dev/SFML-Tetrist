@@ -54,7 +54,7 @@ void GameScene::update(float deltaTime)
       block.back();
       if (board.isCollision(block.getPosisitons()))
       {
-        SceneManager::getInstance().setScene(std::make_shared<GameOverScene>());
+        SceneManager::getInstance().setScene(std::make_shared<GameOverScene>(score));
         return;
       }
       else

@@ -6,7 +6,7 @@
 class GameOverScene : public Scene 
 {
 public:
-  GameOverScene();
+  GameOverScene(int score);
   void handleEvent(sf::Event& event) override;
   void handleUIEvent(sf::RenderWindow& window) override;
   void update(float deltaTime) override;
@@ -14,5 +14,6 @@ public:
 private:
   sf::Font font;
   sf::Text gameOverText;
+  sf::Text scoreText;
   sf::RectangleShape restartButtonShape;
 };
