@@ -5,24 +5,22 @@ int main()
 {
   sf::TcpListener listener;
   listener.listen(8000);
-  
-  std::vector<std::unique_ptr<sf::Thread>> threads;
+  listener.setBlocking(false);
+
+  std::vector<std::unique_ptr<sf::TcpSocket>> sockets;
 
   while (true) {
-    auto socket = std::make_shared<sf::TcpSocket>();
-    listener.accept(*socket);
-    
-    std::cout << "connected" << std::endl;
+    auto socket = std::make_unique<sf::TcpSocket>();
+    socket->setBlocking(false);
+    if (listener.accept(*socket) == sf::Socket::Done) {
+      std::cout << "connected" << std::endl;
+      sockets.push_back(std::move(socket));
+    }
 
-    auto thread = std::make_unique<sf::Thread>([socket](){
-      while (true) {
-        sf::Packet packet;
-        socket->receive(packet);
+    for (auto& socket : sockets) {
+      sf::Packet packet;
+      if (socket->receive(packet) == sf::Socket::Done)
         socket->send(packet);
-      }
-    });
-    thread->launch();
-
-    threads.emplace_back(std::move(thread));
+    }
   }
 }
