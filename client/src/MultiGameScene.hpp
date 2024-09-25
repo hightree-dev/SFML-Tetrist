@@ -19,6 +19,7 @@ public:
   void render(sf::RenderWindow& window) override;
 private:
   void resetTetromino();
+  void handlePacket();
 private:
   bool isRunning;
 
@@ -41,7 +42,6 @@ private:
 
   Board board2;
   Tetromino tetromino2;
-
 };
 
 /*
@@ -75,15 +75,7 @@ MultiGameScene::MultiGameScene()
 {
   if (socket.connect("127.0.0.1", 8000) != sf::Socket::Done)
     throw std::runtime_error("Failed to connect the server");
-  
-  thread = std::make_unique<sf::Thread>([this]{
-    while (isRunning) {
-      sf::Packet packet;
-      auto status = socket.receive(packet);
-      packet >> board2;
-      packet >> tetromino2;
-    }
-  });
+  thread = std::make_unique<sf::Thread>([this]{ handlePacket(); });
   thread->launch();
 }
 
@@ -91,6 +83,15 @@ MultiGameScene::~MultiGameScene()
 {
   isRunning = false;
   socket.disconnect();
+}
+void MultiGameScene::handlePacket()
+{
+  while (isRunning) {
+    sf::Packet packet;
+    socket.receive(packet);
+    packet >> board2;
+    packet >> tetromino2;
+  }
 }
 
 void MultiGameScene::handleEvent(sf::Event& event) 
