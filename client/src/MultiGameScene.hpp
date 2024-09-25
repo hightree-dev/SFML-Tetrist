@@ -12,15 +12,18 @@ class MultiGameScene : public Scene
 {
 public:
   MultiGameScene();
+  ~MultiGameScene();
   void handleEvent(sf::Event& event) override;
   void handleUIEvent(sf::RenderWindow& window) override;
-  void handleNetwork() override;
   void update(const sf::Time& deltaTime) override;
   void render(sf::RenderWindow& window) override;
 private:
   void resetTetromino();
 private:
+  bool isRunning;
+
   sf::TcpSocket socket;
+  std::unique_ptr<sf::Thread> thread;
 
   sf::Time timer;
 
@@ -38,6 +41,7 @@ private:
 
   Board board2;
   Tetromino tetromino2;
+
 };
 
 /*
@@ -48,7 +52,8 @@ private:
 */
 
 MultiGameScene::MultiGameScene()
-: timer(sf::seconds(0.f))
+: isRunning(true)
+, timer(sf::seconds(0.f))
 , duration(sf::seconds(0.5f))
 , tempDuration(duration)
 , blockSize(20.f)
@@ -70,6 +75,22 @@ MultiGameScene::MultiGameScene()
 {
   if (socket.connect("127.0.0.1", 8000) != sf::Socket::Done)
     throw std::runtime_error("Failed to connect the server");
+  
+  thread = std::make_unique<sf::Thread>([this]{
+    while (isRunning) {
+      sf::Packet packet;
+      auto status = socket.receive(packet);
+      packet >> board2;
+      packet >> tetromino2;
+    }
+  });
+  thread->launch();
+}
+
+MultiGameScene::~MultiGameScene()
+{
+  isRunning = false;
+  socket.disconnect();
 }
 
 void MultiGameScene::handleEvent(sf::Event& event) 
@@ -93,19 +114,6 @@ void MultiGameScene::handleUIEvent(sf::RenderWindow& window)
   
 }
 
-void MultiGameScene::handleNetwork()
-{
-  sf::Packet packet;
-  packet << board;
-  packet << tetromino;
-  socket.send(packet);
-
-  packet.clear();
-  socket.receive(packet);
-  packet >> board2;
-  packet >> tetromino2;
-}
-
 void MultiGameScene::update(const sf::Time& deltaTime) 
 { 
   timer += deltaTime;
@@ -123,6 +131,11 @@ void MultiGameScene::update(const sf::Time& deltaTime)
     }
   }
   duration = tempDuration;
+
+  sf::Packet packet;
+  packet << board;
+  packet << tetromino;
+  socket.send(packet);
 }
 
 void MultiGameScene::render(sf::RenderWindow& window)

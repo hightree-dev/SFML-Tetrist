@@ -13,7 +13,6 @@ public:
 private:
   void handleEvents();
   void handleUIEvents();
-  void handleNetwork();
   void update(const sf::Time& deltaTime);
   void updateStatistics(const sf::Time& deltaTime);
   void render();
@@ -66,7 +65,6 @@ void Game::run()
       handleEvents();
       handleUIEvents();
       update(timerPerFrame);
-      handleNetwork();
     }
     updateStatistics(elapsedTime);
     render();
@@ -85,11 +83,6 @@ void Game::handleEvents()
 void Game::handleUIEvents()
 {
   sceneManager.handleUIEvent(window);
-}
-
-void Game::handleNetwork()
-{
-  sceneManager.handleNetowrk();
 }
 
 void Game::update(const sf::Time& deltaTime)

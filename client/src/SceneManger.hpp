@@ -14,7 +14,6 @@ public:
 	void setScene(std::shared_ptr<Scene> scene);
 	void handleEvent(sf::Event& event);
 	void handleUIEvent(sf::RenderWindow& window);
-  void handleNetowrk();
 	void update(const sf::Time& deltaTime);
 	void render(sf::RenderWindow& window);
 private:
@@ -43,11 +42,6 @@ void SceneManager::handleEvent(sf::Event& event)
 void SceneManager::handleUIEvent(sf::RenderWindow& window)
 {
   if (currentScene) currentScene->handleUIEvent(window);
-}
-
-void SceneManager::handleNetowrk()
-{
-  if (currentScene) currentScene->handleNetwork();
 }
 
 void SceneManager::update(const sf::Time& deltaTime) 
