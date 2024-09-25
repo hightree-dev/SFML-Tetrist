@@ -68,9 +68,8 @@ MultiGameScene::MultiGameScene()
 , board2(20, 10, sf::Color::Black)
 , tetromino2({0, 0, 0, 0}, sf::Color::Transparent)
 {
-  socket.connect("127.0.0.1", 8000);
-  // if(socket.connect("127.0.0.1", 8000))
-    // throw std::runtime_error("Failed to connect the server");
+  if (socket.connect("127.0.0.1", 8000) != sf::Socket::Done)
+    throw std::runtime_error("Failed to connect the server");
 }
 
 void MultiGameScene::handleEvent(sf::Event& event) 
